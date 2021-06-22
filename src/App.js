@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import FipeSelect from "./FipeSelect";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <FipeSelect
+        name={"tipos-veiculo"}
+        disabledOption={"Selecione o tipo de veículo"}
+        populeList={"tipos"}
+      ></FipeSelect>
+
+      <FipeSelect
+        name={"marcas-veiculo"}
+        disabledOption={"Selecione a marca do veículo"}
+        populeList={"marcas"}
+      ></FipeSelect>
+
+      <FipeSelect
+        name={"modelos-veiculo"}
+        disabledOption={"Selecione o modelo do veículo"}
+        populeList={"modelos"}
+      ></FipeSelect>
+
+      <FipeSelect name={"ano-veiculo"} disabledOption={"Selecione o ano do veículo"} populeList={"anos"}></FipeSelect>
+    </>
   );
 }
 
