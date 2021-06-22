@@ -3,7 +3,7 @@ import FipeSelect from "./FipeSelect";
 
 function App() {
   return (
-    <>
+    <div className="fipe">
       <FipeSelect
         name={"tipos-veiculo"}
         disabledOption={"Selecione o tipo de veículo"}
@@ -23,7 +23,9 @@ function App() {
       ></FipeSelect>
 
       <FipeSelect name={"ano-veiculo"} disabledOption={"Selecione o ano do veículo"} populeList={"anos"}></FipeSelect>
-    </>
+
+      <FipeSelect resultado></FipeSelect>
+    </div>
   );
 }
 

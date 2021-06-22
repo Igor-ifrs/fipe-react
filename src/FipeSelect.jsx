@@ -27,9 +27,16 @@ export default function FipeSelect(props) {
   const handlerselect = function (e) {
     e.currentTarget.disabled = true;
     setUrl((url[props.populeList] = e.currentTarget.value));
+
     fetchApi(url, props.populeList);
   };
-
+  if (props.resultado) {
+    return (
+      <>
+        <div className="resultado">RESULTADO</div>
+      </>
+    );
+  }
   return (
     <>
       <select name={props.name} onChange={handlerselect}>

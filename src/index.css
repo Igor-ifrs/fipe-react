@@ -17,3 +17,10 @@ select{
     padding: 10px;
     font-size: 1rem;    
 }
+.fipe{
+    border: 1px solid cornflowerblue;
+    padding: 20px;
+}
+.fipe .resultado{
+    text-align: center;
+}
