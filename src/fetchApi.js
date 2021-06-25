@@ -1,6 +1,5 @@
 const fetchApi = async (urlParams, role) => {
   const BASEULR = `https://parallelum.com.br/fipe/api/v1/`;
-
   const URLS = {
     tipos: `${BASEULR}${urlParams.tipos.value}/marcas`,
     marcas: `${BASEULR}${urlParams.tipos.value}/marcas/${urlParams?.marcas?.value}/modelos`,
@@ -9,8 +8,8 @@ const fetchApi = async (urlParams, role) => {
     resultado: "",
   };
 
-  //console.table({ url: URLS[role], target: urlParams[role].target });
-  console.log(urlParams);
+  console.info({ url: URLS[role], target: urlParams[role].target });
+
   try {
     const req = await fetch(URLS[role]);
     if (req.status === 200) {
@@ -19,6 +18,7 @@ const fetchApi = async (urlParams, role) => {
       if (role === "marcas") {
         return { [urlParams[role].target]: result[urlParams[role].target] };
       }
+
       return { [urlParams[role].target]: result };
     }
   } catch (e) {

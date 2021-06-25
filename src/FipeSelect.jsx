@@ -3,9 +3,9 @@ import fetchApi from "./fetchApi";
 
 const _initialValue = {
   tipos: [
-    { codigo: "carros", nome: "Carro" },
-    { codigo: "caminhaos", nome: "Caminhão" },
     { codigo: "motos", nome: "Moto" },
+    { codigo: "carros", nome: "Carro" },
+    { codigo: "caminhoes", nome: "Caminhão" },
   ],
   marcas: [],
   modelos: [],
@@ -19,7 +19,6 @@ const _disabled = {
   anos: true,
 };
 export default function FipeSelect() {
-  console.log("RENDER COMPONNENT");
   const [automovel, setAutomovel] = useState(_initialValue);
   const [urlPart, setUrlPart] = useState(null);
   const [role, setRole] = useState(null);
@@ -43,7 +42,6 @@ export default function FipeSelect() {
 
   useEffect(() => {
     if (urlPart) {
-      console.log("USER EFFECT");
       (async () => {
         const result = await fetchApi(urlPart, role);
         setAutomovel({ ...automovel, ...result });
@@ -53,7 +51,6 @@ export default function FipeSelect() {
   }, [urlPart, role]);
 
   function optionsRender(optionlist) {
-    console.log("RENDER OPTIONS");
     return optionlist.map((option) => {
       return (
         <option key={option.codigo} value={option.codigo}>
@@ -79,6 +76,7 @@ export default function FipeSelect() {
           <span>Combustível : {resultado.Combustivel}</span>
           <span>Cod. FIPE : {resultado.CodigoFipe}</span>
           <span>Refêrencia : {resultado.MesReferencia}</span>
+          <h1>Valor : {resultado.Valor}</h1>
           <button onClick={reset}>NOVA PESQUISA</button>
         </div>
       );
