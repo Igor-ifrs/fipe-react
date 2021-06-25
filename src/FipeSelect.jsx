@@ -114,6 +114,7 @@ export default function FipeSelect() {
         {optionsRender(automovel.anos)}
       </select>
       {resultado(automovel.resultado)}
+      <a href="https://github.com/Igor-ifrs/fipe-react">GITHUB</a>
     </>
   );
 }
