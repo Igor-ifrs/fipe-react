@@ -23,6 +23,7 @@ export default function FipeSelect() {
   const [urlPart, setUrlPart] = useState(null);
   const [role, setRole] = useState(null);
   const [isDisabled, setIsDisabled] = useState(_disabled);
+
   function handler(e) {
     setIsDisabled({
       ...isDisabled,

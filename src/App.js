@@ -1,5 +1,5 @@
 import React from "react";
-import FipeSelect from "./FipeSelect";
+import FipeSelect from "./Fipe/FipeSelect";
 
 function App() {
   return (
