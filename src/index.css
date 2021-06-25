@@ -2,6 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: monospace;
+    font-size: 12px;
 }
 body{
     display: grid;
@@ -12,15 +14,22 @@ body{
 select{
     display: block;    
     margin: 3px;
-    width: 300px;
+    width: 350px;
     cursor: pointer;
     padding: 10px;
     font-size: 1rem;    
 }
 .fipe{
-    border: 1px solid cornflowerblue;
-    padding: 20px;
+    border: 1px solid black;
+    padding: 20px;       
 }
 .fipe .resultado{
     text-align: center;
+}
+span{
+    display: block;
+    text-align: center;
+}
+button{
+    padding: 10px;    
 }

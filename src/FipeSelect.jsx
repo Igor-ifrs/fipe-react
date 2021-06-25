@@ -1,57 +1,119 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import fetchApi from "./fetchApi";
 
-const _initialState = {
+const _initialValue = {
   tipos: [
-    { value: "carros", name: "Carro" },
-    { value: "caminhaos", name: "Caminhão" },
-    { value: "motos", name: "Moto" },
+    { codigo: "carros", nome: "Carro" },
+    { codigo: "caminhaos", nome: "Caminhão" },
+    { codigo: "motos", nome: "Moto" },
   ],
-  marcas: [{ value: 1, name: "ACURA" }],
-  modelos: [{ value: 1, name: "INTEGRA GS" }],
-  anos: [{ value: "1992-1", name: "1992 Gasolina" }],
-  resultado: {},
+  marcas: [],
+  modelos: [],
+  anos: [],
+  resultado: null,
 };
-const _initialUrl = {
-  tipos: "",
-  marcas: "",
-  modelos: "",
-  anos: "",
-  resultado: "",
+const _disabled = {
+  tipos: false,
+  marcas: true,
+  modelos: true,
+  anos: true,
 };
+export default function FipeSelect() {
+  console.log("RENDER COMPONNENT");
+  const [automovel, setAutomovel] = useState(_initialValue);
+  const [urlPart, setUrlPart] = useState(null);
+  const [role, setRole] = useState(null);
+  const [ganbi, setGanbi] = useState(_disabled);
+  function handler(e) {
+    setGanbi({
+      ...ganbi,
+      [e.target.name]: !ganbi[e.target.name],
+      [e.target.dataset.target]: !ganbi[e.target.dataset.target],
+    });
+    setUrlPart({
+      ...urlPart,
+      [e.target.name]: {
+        select: e.target.name,
+        value: e.target.value,
+        target: e.target.dataset.target,
+      },
+    });
+    setRole(e.target.name);
+  }
 
-export default function FipeSelect(props) {
-  const [automovel, setAutomovel] = useState(_initialState);
-  const [url, setUrl] = useState(_initialUrl);
+  useEffect(() => {
+    if (urlPart) {
+      console.log("USER EFFECT");
+      (async () => {
+        const result = await fetchApi(urlPart, role);
+        setAutomovel({ ...automovel, ...result });
+      })();
+    }
+    return () => {};
+  }, [urlPart, role]);
 
-  const handlerselect = function (e) {
-    e.currentTarget.disabled = true;
-    setUrl((url[props.populeList] = e.currentTarget.value));
-
-    fetchApi(url, props.populeList);
-  };
-  if (props.resultado) {
-    return (
-      <>
-        <div className="resultado">RESULTADO</div>
-      </>
-    );
+  function optionsRender(optionlist) {
+    console.log("RENDER OPTIONS");
+    return optionlist.map((option) => {
+      return (
+        <option key={option.codigo} value={option.codigo}>
+          {option.nome}
+        </option>
+      );
+    });
+  }
+  function reset() {
+    setAutomovel(_initialValue);
+    setUrlPart(null);
+    setRole(null);
+    setGanbi(_disabled);
+  }
+  function resultado(resultado) {
+    if (resultado) {
+      return (
+        <div className="resultado">
+          <span>Valor : {resultado.Valor}</span>
+          <span>Marca : {resultado.Marca}</span>
+          <span>Modelo : {resultado.Modelo}</span>
+          <span>Ano : {resultado.AnoModelo}</span>
+          <span>Combustível : {resultado.Combustivel}</span>
+          <span>Cod. FIPE : {resultado.CodigoFipe}</span>
+          <span>Refêrencia : {resultado.MesReferencia}</span>
+          <button onClick={reset}>NOVA PESQUISA</button>
+        </div>
+      );
+    }
   }
   return (
     <>
-      <select name={props.name} onChange={handlerselect}>
-        <option selected={true} disabled={true}>
-          {props.disabledOption}
+      <select disabled={ganbi.tipos} value={"DEFAULT"} data-target="marcas" name="tipos" onChange={handler}>
+        <option value="DEFAULT" disabled selected>
+          Selecione tipo de veículo
         </option>
-
-        {automovel[props.populeList].map(function (opt) {
-          return (
-            <option value={opt.value} key={opt.value}>
-              {opt.name}
-            </option>
-          );
-        })}
+        {optionsRender(automovel.tipos)}
       </select>
+
+      <select disabled={ganbi.marcas} value={"DEFAULT"} data-target="modelos" name="marcas" onChange={handler}>
+        <option value="DEFAULT" disabled selected>
+          Selecione a marca do veículo
+        </option>
+        {optionsRender(automovel.marcas)}
+      </select>
+
+      <select disabled={ganbi.modelos} value={"DEFAULT"} data-target="anos" name="modelos" onChange={handler}>
+        <option value="DEFAULT" disabled selected>
+          Selecione o modelo do veículo
+        </option>
+        {optionsRender(automovel.modelos)}
+      </select>
+
+      <select disabled={ganbi.anos} value={"DEFAULT"} data-target="resultado" name="anos" onChange={handler}>
+        <option value="DEFAULT" disabled selected>
+          Selecione o ano do veículo
+        </option>
+        {optionsRender(automovel.anos)}
+      </select>
+      {resultado(automovel.resultado)}
     </>
   );
 }
