@@ -22,12 +22,12 @@ export default function FipeSelect() {
   const [automovel, setAutomovel] = useState(_initialValue);
   const [urlPart, setUrlPart] = useState(null);
   const [role, setRole] = useState(null);
-  const [ganbi, setGanbi] = useState(_disabled);
+  const [isDisabled, setIsDisabled] = useState(_disabled);
   function handler(e) {
-    setGanbi({
-      ...ganbi,
-      [e.target.name]: !ganbi[e.target.name],
-      [e.target.dataset.target]: !ganbi[e.target.dataset.target],
+    setIsDisabled({
+      ...isDisabled,
+      [e.target.name]: !isDisabled[e.target.name],
+      [e.target.dataset.target]: !isDisabled[e.target.dataset.target],
     });
     setUrlPart({
       ...urlPart,
@@ -63,7 +63,7 @@ export default function FipeSelect() {
     setAutomovel(_initialValue);
     setUrlPart(null);
     setRole(null);
-    setGanbi(_disabled);
+    setIsDisabled(_disabled);
   }
   function resultado(resultado) {
     if (resultado) {
@@ -77,42 +77,41 @@ export default function FipeSelect() {
           <span>Cod. FIPE : {resultado.CodigoFipe}</span>
           <span>Refêrencia : {resultado.MesReferencia}</span>
           <h1>Valor : {resultado.Valor}</h1>
-          <button onClick={reset}>NOVA PESQUISA</button>
         </div>
       );
     }
   }
   return (
     <>
-      <select disabled={ganbi.tipos} value={"DEFAULT"} data-target="marcas" name="tipos" onChange={handler}>
+      <select disabled={isDisabled.tipos} value={"DEFAULT"} data-target="marcas" name="tipos" onChange={handler}>
         <option value="DEFAULT" disabled selected>
           Selecione tipo de veículo
         </option>
         {optionsRender(automovel.tipos)}
       </select>
 
-      <select disabled={ganbi.marcas} value={"DEFAULT"} data-target="modelos" name="marcas" onChange={handler}>
+      <select disabled={isDisabled.marcas} value={"DEFAULT"} data-target="modelos" name="marcas" onChange={handler}>
         <option value="DEFAULT" disabled selected>
           Selecione a marca do veículo
         </option>
         {optionsRender(automovel.marcas)}
       </select>
 
-      <select disabled={ganbi.modelos} value={"DEFAULT"} data-target="anos" name="modelos" onChange={handler}>
+      <select disabled={isDisabled.modelos} value={"DEFAULT"} data-target="anos" name="modelos" onChange={handler}>
         <option value="DEFAULT" disabled selected>
           Selecione o modelo do veículo
         </option>
         {optionsRender(automovel.modelos)}
       </select>
 
-      <select disabled={ganbi.anos} value={"DEFAULT"} data-target="resultado" name="anos" onChange={handler}>
+      <select disabled={isDisabled.anos} value={"DEFAULT"} data-target="resultado" name="anos" onChange={handler}>
         <option value="DEFAULT" disabled selected>
           Selecione o ano do veículo
         </option>
         {optionsRender(automovel.anos)}
       </select>
       {resultado(automovel.resultado)}
-      <a href="https://github.com/Igor-ifrs/fipe-react">GITHUB</a>
+      <button onClick={reset}>NOVA PESQUISA</button>
     </>
   );
 }

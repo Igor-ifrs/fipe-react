@@ -4,6 +4,7 @@ import FipeSelect from "./FipeSelect";
 function App() {
   return (
     <div className="fipe">
+      <a href="https://github.com/Igor-ifrs/fipe-react">GITHUB</a>
       <FipeSelect />
     </div>
   );
